@@ -1,4 +1,5 @@
 # encoding=utf-8
+# 利用TensorFlow自带的mnist数据集对图片进行识别
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import *
 
