@@ -26,3 +26,21 @@ with tf.Session() as sess:
 # 使用初始化器 initializer op 的 run() 方法初始化 'x' 
 x.initializer.run()
 print x.eval()
+
+# 数据的输入 
+. 数据类型 
+. shape (包含batch_size)
+images_placeholder = tf.placeholder(tf.float32, shape=(batch_size,
+                                                       IMAGE_PIXELS))
+
+# TensorFlow构建图表3步
+1.inference(推理) —— 尽可能地构建好图表，做到返回包含结果的Tensor
+2.loss() —— 往inference图表中添加生成损失（loss）所需要的操作（ops）。
+3.training() —— 往损失图表中添加计算并应用梯度（gradients）所需的操作。
+
+ 每一层都创建于一个唯一的tf.name_scope
+ with tf.name_scope('hidden1') as scope:
+  
+# 状态可视化
+summary_writer = tf.train.SummaryWriter(FLAGS.train_dir, # 实例化SummaryWriter, 写入包含图表本身和即时数据具体值的数据文件
+                                        graph_def=sess.graph_def)
