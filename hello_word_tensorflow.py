@@ -21,7 +21,7 @@ accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
 # 交叉殇计算损失函数
 cross_entropy = -tf.reduce_sum(y_ * tf.log(y))
 # 朝着减小交叉熵的方向优化模型
-model = tf.train.GradientDescentOptimizer(0.01).minimize(cross_entropy)
+model = tf.train.GradientDescentOptimizer(0.01).minimize(cross_entropy) # 一直训练一个批次知道交叉熵收敛为止
 
 init = tf.initialize_all_variables()
 sess = tf.Session()
