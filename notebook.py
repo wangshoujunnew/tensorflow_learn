@@ -42,5 +42,12 @@ images_placeholder = tf.placeholder(tf.float32, shape=(batch_size,
  with tf.name_scope('hidden1') as scope:
   
 # 状态可视化
+
+summary_op = tf.merge_all_summaries()  #所有的即时数据合并到一个操作op中
 summary_writer = tf.train.SummaryWriter(FLAGS.train_dir, # 实例化SummaryWriter, 写入包含图表本身和即时数据具体值的数据文件
                                         graph_def=sess.graph_def)
+# 运行summa_op的时候,会往文件中写入最新即时数据
+summary_str = sess.run(summary_op, feed_dict=feed_dict)
+summary_writer.add_summary(summary_str, step)
+
+
