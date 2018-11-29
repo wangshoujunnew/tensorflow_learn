@@ -42,6 +42,8 @@ images_placeholder = tf.placeholder(tf.float32, shape=(batch_size,
  with tf.name_scope('hidden1') as scope:
   
 # 状态可视化
+# 问题:你可能希望记录学习速度(learning rate)的如何变化，以及目标函数如何变化?
+# 定位: 
 
 summary_op = tf.merge_all_summaries()  #所有的即时数据合并到一个操作op中
 summary_writer = tf.train.SummaryWriter(FLAGS.train_dir, # 实例化SummaryWriter, 写入包含图表本身和即时数据具体值的数据文件
