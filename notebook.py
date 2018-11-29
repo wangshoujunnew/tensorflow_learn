@@ -18,3 +18,11 @@ with tf.Session() as sess:
     matrix1 = ...
     matrix2 = ...
     product = tf.matmul(matrix1, matrix2)
+    
+ 
+# 交互式Session
+可以使用 InteractiveSession 代替 Session 类
+用 Tensor.eval() 和 Operation.run() 方法代替 Session.run(). 这样可以避免使用一个变量来持有会话.
+# 使用初始化器 initializer op 的 run() 方法初始化 'x' 
+x.initializer.run()
+print x.eval()
