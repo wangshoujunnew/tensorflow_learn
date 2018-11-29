@@ -47,3 +47,4 @@ key, value = reader.read(filename_queue)  # key 输入的文件
 # 读取二进制 
 tf.FixedLengthRecordReader的tf.decode_raw # decode_raw操作可以讲一个字符串转换为一个uint8的张量。
 the CIFAR-10 dataset的文件格式 :  一个字节的标签，后面是3072字节的图像数据
+  
