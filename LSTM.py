@@ -134,7 +134,7 @@ if __name__ == '__main__':
     with graph.as_default(): #  得到预测值和误差,并用优化器向误差减小的方向训练
         # cell处理后的数据经过全连接层, 输出维度 1
         predictions = tf.contrib.layers.fully_connected(outputs[:, -1], 1, activation_fn=tf.sigmoid) 
-        cost = tf.losses.mean_squared_error(labels_, predictions) 
+        cost = tf.losses.mean_squared_error(labels_, predictions) # 损失函数, 采用均方误差
         optimizer = tf.train.AdamOptimizer().minimize(cost)
 
     with graph.as_default(): # 计算预测的准确率
