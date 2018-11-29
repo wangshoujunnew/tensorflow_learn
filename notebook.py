@@ -27,29 +27,23 @@ with tf.Session() as sess:
 x.initializer.run()
 print x.eval()
 
-# 数据的输入 
-. 数据类型 
-. shape (包含batch_size)
-images_placeholder = tf.placeholder(tf.float32, shape=(batch_size,
-                                                       IMAGE_PIXELS))
 
-# TensorFlow构建图表3步
-1.inference(推理) —— 尽可能地构建好图表，做到返回包含结果的Tensor
-2.loss() —— 往inference图表中添加生成损失（loss）所需要的操作（ops）。
-3.training() —— 往损失图表中添加计算并应用梯度（gradients）所需的操作。
+# 彩色图像 CNN
+1: 读取二进制文件
+** tf的数据读取
+. 文件名列表交给 tf.train.string_input_producer 函数 # string_input_producer来生成一个先入先出的队列， 文件阅读器会需要它来读取数据。
+A: 文件名shuff + 最大迭代次数epoch limits
+** 文件阅读器
+CSV:  TextLineReader和decode_csv
 
- 每一层都创建于一个唯一的tf.name_scope
- with tf.name_scope('hidden1') as scope:
-  
-# 状态可视化
-# 问题:你可能希望记录学习速度(learning rate)的如何变化，以及目标函数如何变化?
-# 定位: 
+# 每次read的执行都会从文件中读取一行内容， decode_csv 操作会解析这一行内容并将其转为张量列表
+# --------------------------   # 
+filename_queue = tf.train.string_input_producer(["file0.csv", "file1.csv"])
 
-summary_op = tf.merge_all_summaries()  #所有的即时数据合并到一个操作op中
-summary_writer = tf.train.SummaryWriter(FLAGS.train_dir, # 实例化SummaryWriter, 写入包含图表本身和即时数据具体值的数据文件
-                                        graph_def=sess.graph_def)
-# 运行summa_op的时候,会往文件中写入最新即时数据
-summary_str = sess.run(summary_op, feed_dict=feed_dict)
-summary_writer.add_summary(summary_str, step)
+reader = tf.TextLineReader()
+ ----------------------------- #
+key, value = reader.read(filename_queue)  # key 输入的文件
 
-
+# 读取二进制 
+tf.FixedLengthRecordReader的tf.decode_raw # decode_raw操作可以讲一个字符串转换为一个uint8的张量。
+the CIFAR-10 dataset的文件格式 :  一个字节的标签，后面是3072字节的图像数据
