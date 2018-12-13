@@ -49,6 +49,12 @@ def get_data(model, corpus_data):
         corpus_matrix[row, :len(line), :] = np.array(line)
     return corpus_matrix, max_length
 
+
+# 得到下一个批次的矩阵, batch_size 为length
+def next_batch(mertric, length):
+    indexs = np.random.randint(0, mertric.shape[0], length)
+    return np.array([mertric[i, :] for i in indexs])
+
 # x = np.arange(0,27).reshape((3,3,3))
 # print(x)
 # print(x[0,:2,:])
