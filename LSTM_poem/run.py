@@ -1,8 +1,9 @@
+# lstm训练生成唐诗
+
 import tensorflow as tf
 import collections
 import numpy as np
 import collections
-# lstm训练生成唐诗
 
 poetry_file = 'data/poetry.txt'
 rnn_size = 128
@@ -132,15 +133,19 @@ train_op = tf.train.AdamOptimizer(learning_rate=0.01).minimize(cost)
 trainds = DataSet(len(poetrys_vector))
 epoch = 1000 # 训练1千次
 iter_size = len(poetrys) // batch_size # 每次epoch需要多少次batch_size
+print('每个epoch需要迭代次数:{}'.format(iter_size))
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
 
     # sess.run(tf.assign(learning_rate, 0.01))
     for e in range(epoch):
-        for batche in range(iter_size):
+        for i in range(iter_size):
             x, y = trainds.next_batch(batch_size)
+            if i % 50 == 0:
+                print('batch_size次数{}'.format(i))
             # print('x.shape:', x.shape,' y.shap:', y.shape)
             cost_look, _ = sess.run([cost, train_op], feed_dict={input_data: x, output_targets: y}) # 不要使用相同的变量名
             # print(cost_look)
-        if e % 100 == 0:
-            print('{}次数, cost:{}'.format(e, cost_look))
+
+        # if e % 5 == 0:
+        print('{}epoch次数, cost:{}'.format(e, cost_look))
